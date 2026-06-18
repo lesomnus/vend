@@ -15,7 +15,8 @@ var DefaultConfigPaths = []string{
 type Config struct {
 	path string
 
-	Greet GreetConfig
+	Server   ServerConfig
+	Packages PackageConfig
 
 	Otel OtelConfig
 }
@@ -40,6 +41,8 @@ func (c *Config) Path() string {
 }
 
 func (c *Config) Evaluate() error {
-	z.FallbackP(&c.Greet.Format, "Hello, %s!")
+	if c.Packages == nil {
+		c.Packages = make(PackageConfig)
+	}
 	return nil
 }

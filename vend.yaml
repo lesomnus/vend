@@ -1,4 +1,7 @@
-# Greeting configuration (used by the `greet` subcommand).
-greet:
-  # Format string; %s is replaced with the name argument.
-  format: "Hello, %s!"
+server:
+  addr: ":8080"
+
+packages:
+  x/net:
+    target: https://github.com/golang/net
+    branch: master
