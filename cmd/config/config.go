@@ -41,6 +41,7 @@ func (c *Config) Path() string {
 }
 
 func (c *Config) Evaluate() error {
+	z.FallbackP(&c.Server.Addr, ":8080")
 	if c.Packages == nil {
 		c.Packages = make(PackageConfig)
 	}
