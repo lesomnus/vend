@@ -22,7 +22,13 @@ func NewCmdServe() *xli.Command {
 			x := otx.From(ctx)
 			h := otxhttp.NewHandler(x, otxhttp.BoundaryLogger()(s), "vend")
 
-			return http.ListenAndServe(c.Server.Addr, h)
+			mux := http.NewServeMux()
+			mux.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
+				w.WriteHeader(http.StatusOK)
+			})
+			mux.Handle("/", h)
+
+			return http.ListenAndServe(c.Server.Addr, mux)
 		}),
 	}
 }
